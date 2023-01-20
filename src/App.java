@@ -17,6 +17,7 @@ public class App {
         System.out.println("4- Buscar Com filtro");
         System.out.println("5- Consultar Numero de Atividades");
         System.out.println("6- Atualizar Tarefa");
+        System.out.println("7- Buscar Por Data");
         System.out.println("0- popular banco");
         Scanner entrada = new Scanner(System.in);
         System.out.print("Insira: ");
@@ -43,10 +44,22 @@ public class App {
             case 6:
                 atualizarTarefa();
                 break;
+            case 7:
+                buscarPorData();
             default:
                 menuPrincipal();
 
         }
+    }
+
+    private static void buscarPorData() {
+        System.out.println("Menu Atualizar BuscarPordata");
+        System.out.print("Insira a data de Inicio que deseja dd/MM/yyyy: ");
+        Scanner entrada = new Scanner(System.in);
+        String dataInicio = entrada.nextLine();
+        System.out.println("Insira a data de Fim que deseja dd/MM/yyyy: ");
+        String dataFim = entrada.nextLine();
+        todo.filtrarTarefaPorData(dataInicio, dataFim);
     }
 
     private static void atualizarTarefa() {

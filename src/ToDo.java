@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,6 +70,16 @@ public class ToDo {
                     tarefa.setStatus(status);
             }
         }
+    }
+
+    public void filtrarTarefaPorData(String dataInicio, String dataFim) {
+        LocalDate start = LocalDate.parse(dataInicio, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        LocalDate end = LocalDate.parse(dataFim, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        List<Tarefa> tarefasPorData = todo.stream()
+                .filter(e -> e.getDataTermino().isAfter(start.minusDays(1))
+                        && e.getDataTermino().isBefore(end.plusDays(1)))
+                .collect(Collectors.toList());
+        tarefasPorData.forEach(System.out::println);
     }
 
     public void popularBanco() {
