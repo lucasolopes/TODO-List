@@ -16,6 +16,7 @@ public class App {
         System.out.println("3- Deletar Tarefa");
         System.out.println("4- Buscar Com filtro");
         System.out.println("5- Consultar Numero de Atividades");
+        System.out.println("6- Atualizar Tarefa");
         System.out.println("0- popular banco");
         Scanner entrada = new Scanner(System.in);
         System.out.print("Insira: ");
@@ -23,19 +24,81 @@ public class App {
         switch (opcao) {
             case 0:
                 popularTarefas();
-
+                break;
             case 1:
                 criarTarefa();
+                break;
             case 2:
                 listaTarefas();
+                break;
             case 3:
                 deletarTarefa();
+                break;
             case 4:
                 bucarTarefaPor();
+                break;
             case 5:
                 listarQuantidadeAtividades();
+                break;
+            case 6:
+                atualizarTarefa();
+                break;
+            default:
+                menuPrincipal();
 
         }
+    }
+
+    private static void atualizarTarefa() {
+        String nome_Tarefa = null;
+        String nome = null;
+        String descricao = null;
+        String dataTermino = null;
+        Long prioridade_Int = null;
+        String categoria = null;
+        Integer status_Int = null;
+        Status status = null;
+
+        System.out.println("Menu Atualizar Tarefa");
+        todo.buscarTarefas();
+        System.out.print("Insira o nome de qual tarefa deseja Alterar: ");
+        Scanner entrada = new Scanner(System.in);
+        nome_Tarefa = entrada.nextLine();
+        System.out.println("Insira os novos dados se desejar nao atualizar deixe ele em branco!");
+        System.out.print("Nome: ");
+        nome = entrada.nextLine();
+        System.out.print("Descricao: ");
+        descricao = entrada.nextLine();
+        System.out.print("data termino 'dd/MM/yyyy': ");
+        dataTermino = entrada.nextLine();
+        System.out.print("Prioridade desejada (1-5): ");
+        String prioridade_String = entrada.nextLine();
+        prioridade_Int = (prioridade_String == "") ? null : Long.parseLong(prioridade_String);
+        System.out.print("Categoria: ");
+        categoria = entrada.nextLine();
+        System.out.print("Status ");
+        System.out.println("Insira o numero  da Opcao Desejada: ");
+        System.out.println("1- ToDo");
+        System.out.println("2- Doing");
+        System.out.println("3- Done");
+        System.out.print("Insira: ");
+        String status_String = entrada.nextLine();
+
+        switch (status_String) {
+            case "1":
+                status = Status.ToDO;
+                break;
+            case "2":
+                status = Status.Doing;
+                break;
+            case "3":
+                status = Status.Done;
+                break;
+            default:
+                break;
+        }
+        todo.atualizarTarefa(nome_Tarefa, nome, descricao, dataTermino, prioridade_Int, categoria, status);
+        menuPrincipal();
     }
 
     private static void popularTarefas() {
@@ -45,6 +108,7 @@ public class App {
     }
 
     private static void listarQuantidadeAtividades() {
+        System.out.println("ToDo Menu Listar Atividades");
         System.out.println("Lista de quantas atividades por status existem: ");
         System.out.println("Quantidade ToDo: " + todo.consultarNumAtividades(Status.ToDO));
         System.out.println("Quantidade Doing: " + todo.consultarNumAtividades(Status.Doing));
@@ -59,35 +123,40 @@ public class App {
         String dataTermino;
         Long prioridade_Int;
         String categoria;
-        int status_Int;
+        Integer status_Int = null;
         Status status = null;
 
         System.out.println("ToDo Menu CriarTarefa");
         System.out.print("Nome: ");
         Scanner entrada = new Scanner(System.in);
-        nome = entrada.next();
+        nome = entrada.nextLine();
         System.out.print("Descricao: ");
-        descricao = entrada.next();
+        descricao = entrada.nextLine();
         System.out.print("data termino 'dd/MM/yyyy': ");
-        dataTermino = entrada.next();
+        dataTermino = entrada.nextLine();
         System.out.print("Prioridade desejada (1-5): ");
-        prioridade_Int = Long.parseLong(entrada.next());
+        String prioridade_String = entrada.nextLine();
+        prioridade_Int = (prioridade_String == "") ? null : Long.parseLong(prioridade_String);
         System.out.print("Categoria: ");
-        categoria = entrada.next();
+        categoria = entrada.nextLine();
         System.out.print("Status ");
         System.out.println("Insira o numero  da Opcao Desejada: ");
         System.out.println("1- ToDo");
         System.out.println("2- Doing");
         System.out.println("3- Done");
         System.out.print("Insira: ");
-        status_Int = entrada.nextInt();
+        String status_String = entrada.nextLine();
+        status_Int = (status_String == "") ? null : Integer.parseInt(status_String);
         switch (status_Int) {
             case 1:
                 status = Status.ToDO;
+                break;
             case 2:
                 status = Status.Doing;
+                break;
             case 3:
                 status = Status.Done;
+                break;
         }
         todo.criarTarefa(nome, descricao, dataTermino, prioridade_Int, categoria, status);
         System.out.println("Criado Com Sucesso!");
@@ -110,7 +179,7 @@ public class App {
         todo.buscarTarefas();
         System.out.println("Qual Tarefa Deseja Remover?");
         System.out.print("Insira: ");
-        remover = entrada.next();
+        remover = entrada.nextLine();
         todo.removerTarefa(remover);
         System.out.println();
         menuPrincipal();
@@ -128,12 +197,12 @@ public class App {
         switch (buscarPor) {
             case 1:
                 System.out.println("Qual categoria? ");
-                todo.buscarTarefasPoCategoria(entrada.next());
+                todo.buscarTarefasPoCategoria(entrada.nextLine());
                 break;
 
             case 2:
                 System.out.println("Qual prioridade (1-5)? ");
-                todo.buscarTarefasPorPrioridade(Long.parseLong(entrada.next()));
+                todo.buscarTarefasPorPrioridade(Long.parseLong(entrada.nextLine()));
                 break;
 
             case 3:

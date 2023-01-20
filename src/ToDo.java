@@ -50,16 +50,36 @@ public class ToDo {
         return quant;
     }
 
+    public void atualizarTarefa(String nomeTarefa, String nome, String descricao, String dataTermino,
+            Long prioridade, String categoria, Status status) {
+        for (Tarefa tarefa : todo) {
+            if (tarefa.getNome().equals(nomeTarefa)) {
+                if (!nome.isBlank())
+                    tarefa.setNome(nome);
+                if (!descricao.isBlank())
+                    tarefa.setDescricao(descricao);
+                if (!dataTermino.isBlank())
+                    tarefa.setDataTermino(dataTermino);
+                if (prioridade != null)
+                    tarefa.setPrioridade(prioridade);
+                if (!categoria.isBlank())
+                    tarefa.setCategoria(categoria);
+                if (status != null)
+                    tarefa.setStatus(status);
+            }
+        }
+    }
+
     public void popularBanco() {
         criarTarefa("pokemon", "api", "01/02/2023", 1l, "BACK", Status.ToDO);
-        criarTarefa("pokemon", "api", "01/02/2023", 1l, "FRONT", Status.ToDO);
+        criarTarefa("pokemon1", "api", "01/02/2023", 1l, "FRONT", Status.ToDO);
         criarTarefa("pokebola", "api", "15/02/2023", 2l, "BACK", Status.ToDO);
-        criarTarefa("pokebola", "api", "15/02/2023", 2l, "front", Status.ToDO);
+        criarTarefa("pokebola1", "api", "15/02/2023", 2l, "front", Status.ToDO);
         criarTarefa("personagem", "api", "30/02/2023", 4l, "BACK", Status.Doing);
-        criarTarefa("personagem", "api", "30/02/2023", 4l, "front", Status.Doing);
+        criarTarefa("personagem1", "api", "30/02/2023", 4l, "front", Status.Doing);
         criarTarefa("ambiente", "api", "03/03/2023", 5l, "BACK", Status.Doing);
-        criarTarefa("ambiente", "api", "03/03/2023", 5l, "front", Status.Doing);
+        criarTarefa("ambiente1", "api", "03/03/2023", 5l, "front", Status.Doing);
         criarTarefa("vilao", "api", "25/01/2023", 1l, "BACK", Status.Done);
-        criarTarefa("vilao", "api", "25/01/2023", 1l, "BACK", Status.Done);
+        criarTarefa("vilao1", "api", "25/01/2023", 1l, "BACK", Status.Done);
     }
 }

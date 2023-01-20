@@ -50,4 +50,28 @@ public class Tarefa {
                 + " | Prioridade: " + prioridade + " | Categoria: " + categoria + " | Status: " + status;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public void setDataTermino(String dataTermino) {
+        this.dataTermino = LocalDate.parse(dataTermino, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+
+    public void setPrioridade(Long prioridade) {
+        this.prioridade = prioridade;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
 }
