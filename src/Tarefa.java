@@ -5,11 +5,11 @@ public class Tarefa {
     String nome;
     String descricao;
     LocalDate dataTermino;
-    Prioridade prioridade;
+    Long prioridade;
     String categoria;
     Status status;
 
-    public Tarefa(String nome, String descricao, String dataTermino, Prioridade prioridade, String categoria,
+    public Tarefa(String nome, String descricao, String dataTermino, Long prioridade, String categoria,
             Status status) {
         this.nome = nome;
         this.descricao = descricao;
@@ -31,7 +31,7 @@ public class Tarefa {
         return dataTermino;
     }
 
-    public Prioridade getPrioridade() {
+    public Long getPrioridade() {
         return prioridade;
     }
 
