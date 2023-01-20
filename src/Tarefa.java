@@ -1,18 +1,19 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 
-public class Tarefa {
+public class Tarefa implements Comparator<Tarefa> {
     String nome;
     String descricao;
     LocalDate dataTermino;
-    Long prioridade;
+    Integer prioridade;
     String categoria;
     Status status;
 
     public Tarefa() {
     };
 
-    public Tarefa(String nome, String descricao, String dataTermino, Long prioridade, String categoria,
+    public Tarefa(String nome, String descricao, String dataTermino, Integer prioridade, String categoria,
             Status status) {
         this.nome = nome;
         this.descricao = descricao;
@@ -34,7 +35,7 @@ public class Tarefa {
         return dataTermino;
     }
 
-    public Long getPrioridade() {
+    public Integer getPrioridade() {
         return prioridade;
     }
 
@@ -65,7 +66,7 @@ public class Tarefa {
         this.dataTermino = LocalDate.parse(dataTermino, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
-    public void setPrioridade(Long prioridade) {
+    public void setPrioridade(Integer prioridade) {
         this.prioridade = prioridade;
     }
 
@@ -75,6 +76,12 @@ public class Tarefa {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @Override
+    public int compare(Tarefa o1, Tarefa o2) {
+        // TODO Auto-generated method stub
+        return Integer.compare(o1.prioridade, o2.prioridade);
     }
 
 }

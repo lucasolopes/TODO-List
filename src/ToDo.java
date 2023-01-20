@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,19 +13,20 @@ public class ToDo {
     private List<Tarefa> todo = new ArrayList<Tarefa>();
     private String filePath = "dados.csv";
 
-    public void criarTarefa(String nome, String descricao, String dataTermino, Long prioridade, String categoria,
+    public void criarTarefa(String nome, String descricao, String dataTermino, Integer prioridade, String categoria,
             Status status) {
         Tarefa tarefa = new Tarefa(nome, descricao, dataTermino, prioridade, categoria, status);
         todo.add(tarefa);
         salvarTarefa(tarefa);
+        Collections.sort(todo, new Tarefa());
     }
 
     public void criarTarefa(Tarefa tarefa) {
         todo.add(tarefa);
-        ;
     }
 
     public void buscarTarefas() {
+        Collections.sort(todo, new Tarefa());
         todo.forEach(System.out::println);
     }
 
@@ -38,7 +40,7 @@ public class ToDo {
         collect.forEach(System.out::println);
     }
 
-    public void buscarTarefasPorPrioridade(Long prioridade) {
+    public void buscarTarefasPorPrioridade(Integer prioridade) {
         List<Tarefa> collect = todo.stream().filter(tarefa -> tarefa.prioridade.equals(prioridade))
                 .collect(Collectors.toList());
         collect.forEach(System.out::println);
@@ -61,7 +63,7 @@ public class ToDo {
     }
 
     public void atualizarTarefa(String nomeTarefa, String nome, String descricao, String dataTermino,
-            Long prioridade, String categoria, Status status) {
+            Integer prioridade, String categoria, Status status) {
         for (Tarefa tarefa : todo) {
             if (tarefa.getNome().equals(nomeTarefa)) {
                 if (!nome.isBlank())
@@ -78,6 +80,7 @@ public class ToDo {
                     tarefa.setStatus(status);
             }
         }
+        Collections.sort(todo, new Tarefa());
     }
 
     public void filtrarTarefaPorData(String dataInicio, String dataFim) {
@@ -87,20 +90,21 @@ public class ToDo {
                 .filter(e -> e.getDataTermino().isAfter(start.minusDays(1))
                         && e.getDataTermino().isBefore(end.plusDays(1)))
                 .collect(Collectors.toList());
+        Collections.sort(todo, new Tarefa());
         tarefasPorData.forEach(System.out::println);
     }
 
     public void popularBanco() {
-        criarTarefa("pokemon", "api", "01/02/2023", 1l, "BACK", Status.ToDO);
-        criarTarefa("pokemon1", "api", "01/02/2023", 1l, "FRONT", Status.ToDO);
-        criarTarefa("pokebola", "api", "15/02/2023", 2l, "BACK", Status.ToDO);
-        criarTarefa("pokebola1", "api", "15/02/2023", 2l, "front", Status.ToDO);
-        criarTarefa("personagem", "api", "30/02/2023", 4l, "BACK", Status.Doing);
-        criarTarefa("personagem1", "api", "30/02/2023", 4l, "front", Status.Doing);
-        criarTarefa("ambiente", "api", "03/03/2023", 5l, "BACK", Status.Doing);
-        criarTarefa("ambiente1", "api", "03/03/2023", 5l, "front", Status.Doing);
-        criarTarefa("vilao", "api", "25/01/2023", 1l, "BACK", Status.Done);
-        criarTarefa("vilao1", "api", "25/01/2023", 1l, "BACK", Status.Done);
+        criarTarefa("pokemon", "api", "01/02/2023", 1, "BACK", Status.ToDO);
+        criarTarefa("pokemon1", "api", "01/02/2023", 1, "FRONT", Status.ToDO);
+        criarTarefa("pokebola", "api", "15/02/2023", 2, "BACK", Status.ToDO);
+        criarTarefa("pokebola1", "api", "15/02/2023", 2, "front", Status.ToDO);
+        criarTarefa("personagem", "api", "30/02/2023", 5, "BACK", Status.Doing);
+        criarTarefa("personagem1", "api", "30/02/2023", 4, "front", Status.Doing);
+        criarTarefa("ambiente", "api", "03/03/2023", 1, "BACK", Status.Doing);
+        criarTarefa("ambiente1", "api", "03/03/2023", 5, "front", Status.Doing);
+        criarTarefa("vilao", "api", "25/01/2023", 1, "BACK", Status.Done);
+        criarTarefa("vilao1", "api", "25/01/2023", 1, "BACK", Status.Done);
     }
 
     private void salvarTarefa(Tarefa tarefa) {
@@ -115,6 +119,7 @@ public class ToDo {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Collections.sort(todo, new Tarefa());
     }
 
     public void puxarDadosParaObjeto() {
@@ -126,7 +131,7 @@ public class ToDo {
                 object.setNome(values[0]);
                 object.setDescricao(values[1]);
                 object.setDataTermino(values[2]);
-                object.setPrioridade(Long.parseLong(values[3]));
+                object.setPrioridade(Integer.parseInt(values[3]));
                 object.setCategoria(values[4]);
                 object.setStatus(Status.valueOf(values[5]));
                 todo.add(object);

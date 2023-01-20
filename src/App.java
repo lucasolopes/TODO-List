@@ -69,7 +69,7 @@ public class App {
         String nome = null;
         String descricao = null;
         String dataTermino = null;
-        Long prioridade_Int = null;
+        Integer prioridade_Int = null;
         String categoria = null;
         Status status = null;
 
@@ -87,7 +87,7 @@ public class App {
         dataTermino = entrada.nextLine();
         System.out.print("Prioridade desejada (1-5): ");
         String prioridade_String = entrada.nextLine();
-        prioridade_Int = (prioridade_String == "") ? null : Long.parseLong(prioridade_String);
+        prioridade_Int = (prioridade_String == "") ? null : Integer.parseInt(prioridade_String);
         System.out.print("Categoria: ");
         categoria = entrada.nextLine();
         System.out.print("Status ");
@@ -135,7 +135,7 @@ public class App {
         String nome;
         String descricao;
         String dataTermino;
-        Long prioridade_Int;
+        Integer prioridade_Int;
         String categoria;
         Integer status_Int = null;
         Status status = null;
@@ -150,7 +150,7 @@ public class App {
         dataTermino = entrada.nextLine();
         System.out.print("Prioridade desejada (1-5): ");
         String prioridade_String = entrada.nextLine();
-        prioridade_Int = (prioridade_String == "") ? null : Long.parseLong(prioridade_String);
+        prioridade_Int = (prioridade_String == "") ? null : Integer.parseInt(prioridade_String);
         System.out.print("Categoria: ");
         categoria = entrada.nextLine();
         System.out.print("Status ");
@@ -216,7 +216,7 @@ public class App {
 
             case 2:
                 System.out.println("Qual prioridade (1-5)? ");
-                todo.buscarTarefasPorPrioridade(Long.parseLong(entrada.nextLine()));
+                todo.buscarTarefasPorPrioridade(Integer.parseInt(entrada.nextLine()));
                 break;
 
             case 3:
