@@ -5,9 +5,7 @@ public class App {
     static ToDo todo = new ToDo();
 
     public static void main(String[] args) {
-        while (true) {
-            menuPrincipal();
-        }
+        menuPrincipal();
     }
 
     public static void menuPrincipal() {
@@ -53,7 +51,7 @@ public class App {
         prioridade_Int = Long.parseLong(entrada.next());
         System.out.print("Categoria: ");
         categoria = entrada.next();
-        System.out.println("Status");
+        System.out.print("Status ");
         System.out.println("Insira o numero  da Opcao Desejada: ");
         System.out.println("1- ToDo");
         System.out.println("2- Doing");
@@ -68,25 +66,31 @@ public class App {
             case 3:
                 status = Status.Done;
         }
-
         todo.CriarTarefa(nome, descricao, dataTermino, prioridade_Int, categoria, status);
-        System.out.println(
-                "Criado Com Sucesso!");
-        System.out.println();
+        System.out.println("Criado Com Sucesso!");
+        menuPrincipal();
     }
 
     private static void listaTarefas() {
         System.out.println("ToDo Menu ListarTarefas");
         todo.BuscarTarefas();
+        System.out.println();
+        menuPrincipal();
     }
 
     private static void deletarTarefa() {
-        System.out.println("ToDo Menu DeletarTarefa");
+
+        String remover;
         Scanner entrada = new Scanner(System.in);
-        listaTarefas();
+        System.out.println("ToDo Menu DeletarTarefa");
+        // Scanner entrada = new Scanner(System.in);
+        todo.BuscarTarefas();
         System.out.println("Qual Tarefa Deseja Remover?");
         System.out.print("Insira: ");
-        todo.RemoverTarefa(entrada.next());
+        remover = entrada.next();
+        todo.RemoverTarefa(remover);
+        System.out.println();
+        menuPrincipal();
     }
 
     private static void bucarTarefaPor() {
@@ -95,16 +99,20 @@ public class App {
         System.out.println("1- Categoria");
         System.out.println("2- Prioridade");
         System.out.println("3- Status");
-        System.out.println("Insira: ");
+        System.out.print("Insira: ");
         Scanner entrada = new Scanner(System.in);
-        int opcao = entrada.nextInt();
-        switch (opcao) {
+        int buscarPor = entrada.nextInt();
+        switch (buscarPor) {
             case 1:
                 System.out.println("Qual categoria? ");
                 todo.BuscarTarefasPoCategoria(entrada.next());
+                break;
+
             case 2:
                 System.out.println("Qual prioridade (1-5)? ");
                 todo.BuscarTarefasPorPrioridade(Long.parseLong(entrada.next()));
+                break;
+
             case 3:
                 System.out.println("Status");
                 System.out.println("Insira o numero  da Opcao Desejada: ");
@@ -116,12 +124,19 @@ public class App {
                 switch (status_Int) {
                     case 1:
                         todo.BuscarTarefasPorStatus(Status.ToDO);
+                        break;
                     case 2:
                         todo.BuscarTarefasPorStatus(Status.Doing);
+                        break;
                     case 3:
                         todo.BuscarTarefasPorStatus(Status.Done);
+                        break;
                 }
+                break;
+
         }
+        System.out.println();
+        menuPrincipal();
     }
 
 }
