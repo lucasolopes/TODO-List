@@ -5,10 +5,12 @@ public class App {
     static ToDo todo = new ToDo();
 
     public static void main(String[] args) {
+        todo.puxarDadosParaObjeto();
         menuPrincipal();
     }
 
     public static void menuPrincipal() {
+
         System.out.println("ToDo Menu Principal");
         System.out.println("Insira o numero  da Opcao Desejada: ");
         System.out.println("1- Criar Tarefa");
@@ -69,7 +71,6 @@ public class App {
         String dataTermino = null;
         Long prioridade_Int = null;
         String categoria = null;
-        Integer status_Int = null;
         Status status = null;
 
         System.out.println("Menu Atualizar Tarefa");
@@ -178,7 +179,7 @@ public class App {
 
     private static void listaTarefas() {
         System.out.println("ToDo Menu ListarTarefas");
-        todo.listarTarefas("dados.csv");
+        todo.buscarTarefas();
         System.out.println();
         menuPrincipal();
     }
