@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -10,10 +15,12 @@ public class ToDo {
     public void criarTarefa(String nome, String descricao, String dataTermino, Long prioridade, String categoria,
             Status status) {
         todo.add(new Tarefa(nome, descricao, dataTermino, prioridade, categoria, status));
+        salvarToDo();
     }
 
     public void criarTarefa(Tarefa tarefa) {
         todo.add(tarefa);
+        salvarToDo();
     }
 
     public void buscarTarefas() {
@@ -22,6 +29,7 @@ public class ToDo {
 
     public void removerTarefa(String nome) {
         todo.removeIf(tarefa -> tarefa.getNome().equals(nome));
+        salvarToDo();
     }
 
     public void buscarTarefasPorStatus(Status status) {
@@ -70,6 +78,7 @@ public class ToDo {
                     tarefa.setStatus(status);
             }
         }
+        salvarToDo();
     }
 
     public void filtrarTarefaPorData(String dataInicio, String dataFim) {
@@ -93,5 +102,46 @@ public class ToDo {
         criarTarefa("ambiente1", "api", "03/03/2023", 5l, "front", Status.Doing);
         criarTarefa("vilao", "api", "25/01/2023", 1l, "BACK", Status.Done);
         criarTarefa("vilao1", "api", "25/01/2023", 1l, "BACK", Status.Done);
+        salvarToDo();
+    }
+
+    private void salvarToDo() {
+        String caminho = "dados.csv";
+
+        try (FileWriter fw = new FileWriter(caminho);
+                BufferedWriter bw = new BufferedWriter(fw)) {
+            for (Tarefa object : todo) {
+                bw.write(object.getNome() + "," + object.getDescricao() + ","
+                        + object.getDataTermino().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + ","
+                        + object.getPrioridade() + "," + object.getCategoria() + "," + object.getStatus());
+                bw.newLine();
+            }
+            bw.close();
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void listarTarefas(String filePath) {
+        List<Tarefa> objects = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                Tarefa object = new Tarefa();
+                object.setNome(values[0]);
+                object.setDescricao(values[1]);
+                object.setDataTermino(values[2]);
+                object.setPrioridade(Long.parseLong(values[3]));
+                object.setCategoria(values[4]);
+                object.setStatus(Status.valueOf(values[5]));
+                objects.add(object);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        objects.forEach(System.out::println);
+        ;
     }
 }

@@ -9,6 +9,9 @@ public class Tarefa {
     String categoria;
     Status status;
 
+    public Tarefa() {
+    };
+
     public Tarefa(String nome, String descricao, String dataTermino, Long prioridade, String categoria,
             Status status) {
         this.nome = nome;

@@ -178,7 +178,7 @@ public class App {
 
     private static void listaTarefas() {
         System.out.println("ToDo Menu ListarTarefas");
-        todo.buscarTarefas();
+        todo.listarTarefas("dados.csv");
         System.out.println();
         menuPrincipal();
     }
