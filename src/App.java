@@ -10,7 +10,7 @@ public class App {
     }
 
     public static void menuPrincipal() {
-
+        todo.alarmesAtivos();
         System.out.println("ToDo Menu Principal");
         System.out.println("Insira o numero  da Opcao Desejada: ");
         System.out.println("1- Criar Tarefa");
@@ -20,6 +20,7 @@ public class App {
         System.out.println("5- Consultar Numero de Atividades");
         System.out.println("6- Atualizar Tarefa");
         System.out.println("7- Buscar Por Data");
+        System.out.println("8- Desativar Alarmes");
         System.out.println("0- popular banco");
         Scanner entrada = new Scanner(System.in);
         System.out.print("Insira: ");
@@ -48,9 +49,10 @@ public class App {
                 break;
             case 7:
                 buscarPorData();
+            case 8:
+                todo.desativarAlarmes();
             default:
                 menuPrincipal();
-
         }
     }
 
@@ -135,6 +137,11 @@ public class App {
         String nome;
         String descricao;
         String dataTermino;
+
+        String horaTermino;
+        Boolean alarm = false;
+        String dataAlarme = null;
+
         Integer prioridade_Int;
         String categoria;
         Integer status_Int = null;
@@ -146,8 +153,24 @@ public class App {
         nome = entrada.nextLine();
         System.out.print("Descricao: ");
         descricao = entrada.nextLine();
-        System.out.print("data termino 'dd/MM/yyyy': ");
+        System.out.print("Data termino 'dd/MM/yyyy': ");
         dataTermino = entrada.nextLine();
+
+        System.out.print("Hora termino 'HH:mm': ");
+        horaTermino = entrada.nextLine();
+
+        System.out.println("Deseja criar um alarme? ");
+        System.out.println("Y/y para sim");
+        System.out.println("Vazio para nao");
+        System.out.print("Insira: ");
+        String alarme_String = entrada.nextLine();
+        if (alarme_String.trim().toUpperCase().equals("Y")) {
+            alarm = true;
+            System.out.println("Informe o horario para ser avisado: (caso nao irformado sera avisado 2hrs antes) ");
+            System.out.print("Insira 'dd/MM/yyyy HH:mm' : ");
+            dataAlarme = entrada.nextLine();
+        }
+
         System.out.print("Prioridade desejada (1-5): ");
         String prioridade_String = entrada.nextLine();
         prioridade_Int = (prioridade_String == "") ? null : Integer.parseInt(prioridade_String);
@@ -172,7 +195,8 @@ public class App {
                 status = Status.Done;
                 break;
         }
-        todo.criarTarefa(nome, descricao, dataTermino, prioridade_Int, categoria, status);
+        todo.criarTarefa(nome, descricao, dataTermino, horaTermino, alarm, dataAlarme, prioridade_Int, categoria,
+                status);
         System.out.println("Criado Com Sucesso!");
         menuPrincipal();
     }
