@@ -1,18 +1,40 @@
-## Getting Started
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+# Todo List
+Todo-List é um agendador de tarefas, criado em java afim de estudos para um projeto de um processo seletivo
 
-## Folder Structure
+## Requisitos
 
-The workspace contains two folders by default, where:
+Java 8 posterior
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+## Rodando o Projeto
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+Clone o projeto
 
-## Dependency Management
+```bash
+  git clone https://link-para-o-projeto
+```
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+Entre no diretório do projeto
+
+```bash
+  cd my-project
+```
+
+Compile o codigo
+
+```bash
+  javac -cp . App.java
+```
+
+Inicie o programa
+
+```bash
+  java App
+```
+
+
+## Licença
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
