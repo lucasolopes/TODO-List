@@ -12,7 +12,7 @@ Java 8 posterior
 Clone o projeto
 
 ```bash
-  git clone https://link-para-o-projeto
+  git clone https://github.com/lucasolopes/TODO-List.git
 ```
 
 Entre no diretório do projeto
